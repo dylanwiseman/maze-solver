@@ -9,10 +9,10 @@ function MazeCrawler(maze) {
   //Our MazeCrawler uses a Depth-First approach to solving the maze,
   //following one path at a time until it finds success or a dead end.
 
-  //Recursive traverse function checks if the maze is solved and if the coordinates passed in return...
+  //Recursive traverse function checks if the maze is unsolved and, if so, do the coordinates passed in return...
   // (2) - success, aka our "base case"
   // (3) - custom action, in this case, a portal to another maze
-  // (1) - a valid spot, then calls itself (the same traverse function), passing in coordinates of the surrounding spots
+  // (1) - a valid spot, then traverse calls itself (the same traverse function), passing in coordinates of the surrounding spots
 
   this.traverse = function (universe, depth, column, row) {
     // If MazeCrawler finds a 2, we're done!
@@ -94,6 +94,8 @@ function MazeCrawler(maze) {
 }
 
 //Our Multiversal Maze:
+//right now the Mave Mulitverse only supports 2 mazes, but we can adjust the logic to add more
+
 let theMaze = [
   [
     [

@@ -1,4 +1,4 @@
-//Copy everything and run in Repl.it to see the MazeCrawler in motion:
+//Copy everything and run in Replit to see the MazeCrawler in motion:
 
 //Interdimensional MazeCrawler Class:
 function MazeCrawler(maze) {
@@ -6,10 +6,18 @@ function MazeCrawler(maze) {
   this.solved = false;
   this.path = [];
 
-  //Recursive traverse function searches for a way through the maze using a Depth-First approach:
+  //Our MazeCrawler uses a Depth-First approach to solving the maze,
+  //following one path at a time until it finds success or a dead end.
+
+  //Recursive traverse function checks if the maze is solved and if the coordinates passed in return...
+  // (2) - success, aka our "base case"
+  // (3) - custom action, in this case, a portal to another maze
+  // (1) - a valid spot, then calls itself (the same traverse function), passing in coordinates of the surrounding spots
+
   this.traverse = function (universe, depth, column, row) {
     // If MazeCrawler finds a 2, we're done!
     if (this.maze[universe][depth][column][row] === 2) {
+      //adding coordinates to the path array:
       this.path.push([universe, depth, column, row]);
       console.log(
         `MazeCrawler finished the maze at Universe: ${universe}, Depth: ${depth}, Col: ${column}, Row: ${row}`
@@ -20,7 +28,7 @@ function MazeCrawler(maze) {
         this.path
       );
     } else if (this.maze[universe][depth][column][row] === 3 && !this.solved) {
-      // If MazeCrawler finds a 3, we're going to travel to another Maze in the Maze-verse:
+      // If MazeCrawler finds a 3, we're going to travel to another Maze in the Maze-verse by passing in special coordinates to traverse:
       console.log(
         `Found a mysterious portal at Universe: ${universe}, Depth: ${depth}, Col: ${column}, Row: ${row}... MazeCrawler's going through it!`
       );

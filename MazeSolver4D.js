@@ -69,7 +69,7 @@ function MazeCrawler(maze) {
         this.traverse(universe, depth - 1, column, row);
       }
       // If none of those are available, the traverse function that called us is done,
-      // and the traverse function that called THAT traverse function now tries traversing in the next direction.
+      // and the traverse function that called THAT traverse function will then try traversing in the next direction.
       if (!this.solved) {
         console.log(
           "no options, backtracking from ",

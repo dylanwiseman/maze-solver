@@ -41,7 +41,7 @@ function MazeCrawler(maze) {
     } else if (this.maze[universe][depth][column][row] === 1 && !this.solved) {
       // If MazeCrawler finds a one, we're going to try traversing from there:
       console.log(
-        `Traversed to Universe: ${universe}, Depth: ${depth}, Col: ${column}, Row: ${row}`
+        `Traversed to: (Universe: ${universe}, Depth: ${depth}, Col: ${column}, Row: ${row})`
       );
       this.path.push([universe, depth, column, row]);
       // First we set the 1 at our current location to 9, so we can't traverse it again:

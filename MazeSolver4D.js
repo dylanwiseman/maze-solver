@@ -1,4 +1,4 @@
-//copy and run in replit:
+//Copy and run in Repl.it:
 
 let myMaze = [
   [
@@ -121,68 +121,85 @@ let myMaze = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   ],
 ];
-function MazeSolver(maze) {
+
+const maze1 = require("./mazes");
+const maze2 = require("./mazes");
+
+let theMaze = [maze1, maze2];
+
+//Interdimensional MazeCrawler Class:
+function MazeCrawler(maze) {
   this.maze = maze;
   this.solved = false;
   this.path = [];
 
-  this.traverse = function (depth, column, row) {
-    if (this.maze[depth][column][row] == 2) {
-      this.path.push([depth, column, row]);
+  //Recursive traverse function searches for a way through the maze using a Depth-First approach, literally:
+  this.traverse = function (universe, depth, column, row) {
+    // If MazeCrawler finds a 2, we're done!
+    if (this.maze[universe][depth][column][row] === 2) {
+      this.path.push([universe, depth, column, row]);
       console.log(
-        "We solved the maze at (Col: " +
-          column +
-          ", Row: " +
-          row +
-          ", Depth: " +
-          depth +
-          ")"
+        `MazeCrawler finished the maze at Universe: ${universe}, Depth: ${depth}, Col: ${column}, Row: ${row}`
       );
       this.solved = true;
-      console.log("Path (Depth, Col, Row): ", this.path);
-    } else if (this.maze[depth][column][row] == 1 && !this.solved) {
       console.log(
-        "At valid position (Col: " +
-          column +
-          ", Row: " +
-          row +
-          ", Depth: " +
-          depth +
-          ")"
+        "Here's the path it took (Universe, Depth, Col, Row): ",
+        this.path
+      );
+    } else if (this.maze[universe][depth][column][row] === 3 && !this.solved) {
+      // If MazeCrawler finds a 3, we're going to travel to another Maze in the Maze-verse:
+      console.log(
+        `Found a mysterious portal at Universe: ${universe}, Depth: ${depth}, Col: ${column}, Row: ${row}... I'm going through it!`
+      );
+      this.path.push([universe, depth, column, row]);
+      this.maze[universe][depth][column][row] = 9;
+      universe === 0 ? (universe = 1) : (universe = 0);
+      depth = 0;
+      this.traverse(universe, depth, column, row);
+    } else if (this.maze[universe][depth][column][row] === 1 && !this.solved) {
+      console.log(
+        `Traversed to Universe: ${universe}, Depth: ${depth}, Col: ${column}, Row: ${row}`
       );
       this.path.push([depth, column, row]);
-      this.maze[depth][column][row] = 9;
-      if (depth < this.maze.length - 1 && !this.solved) {
+      this.maze[universe][depth][column][row] = 9;
+      if (depth < this.maze[universe].length - 1 && !this.solved) {
         console.log("trying deeper");
-        this.traverse(depth + 1, column, row);
+        this.traverse(universe, depth + 1, column, row);
       }
-      if (column < this.maze[depth].length - 1 && !this.solved) {
+      if (column < this.maze[universe][depth].length - 1 && !this.solved) {
         console.log("trying down");
-        this.traverse(depth, column + 1, row);
+        this.traverse(universe, depth, column + 1, row);
       }
-      if (row < this.maze[depth][column].length - 1 && !this.solved) {
+      if (row < this.maze[universe][depth][column].length - 1 && !this.solved) {
         console.log("trying right");
-        this.traverse(depth, column, row + 1);
+        this.traverse(universe, depth, column, row + 1);
       }
       if (column > 0 && !this.solved) {
         console.log("trying left");
-        this.traverse(depth, column - 1, row);
+        this.traverse(universe, depth, column - 1, row);
       }
       if (row > 0 && !this.solved) {
         console.log("trying up");
-        this.traverse(depth, column, row - 1);
+        this.traverse(universe, depth, column, row - 1);
       }
       if (depth > 0 && !this.solved) {
         console.log("trying shallower");
-        this.traverse(depth - 1, column, row);
+        this.traverse(universe, depth - 1, column, row);
       }
       if (!this.solved) {
-        console.log("no options, backtracking from ", depth, column, row);
+        console.log(
+          "no options, backtracking from ",
+          universe,
+          depth,
+          column,
+          row
+        );
         this.path.pop();
       }
     }
   };
 }
 
-let ms = new MazeSolver(myMaze);
-ms.traverse(0, 3, 0);
+let startingCoordinates = [0, 0, 3, 0];
+let crawler = new MazeCrawler(theMaze);
+crawler.traverse(...startingCoordinates);

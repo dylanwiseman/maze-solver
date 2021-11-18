@@ -140,7 +140,7 @@ function MazeSolver(maze) {
           ")"
       );
       this.solved = true;
-      console.log("Path: ", this.path);
+      console.log("Path (Depth, Col, Row): ", this.path);
     } else if (this.maze[depth][column][row] == 1 && !this.solved) {
       console.log(
         "At valid position (Col: " +

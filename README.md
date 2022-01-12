@@ -1,4 +1,4 @@
-# maze-solver
+# 4D Interdimensional Maze Solver
 
 I Absolutely bombed a tech interview once. 
 
